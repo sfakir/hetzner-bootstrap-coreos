@@ -1,3 +1,18 @@
+# how to use
+
+
+bundle update
+did not do the write of the following content in /tmp/cloud-config.yaml
+---
+hostname: <%= hostname %>
+ssh_authorized_keys:
+  - <%= public_keys %>
+---
+next:
+  export TERM=xterm; /tmp/coreos-install -d /dev/sda -C stable -c /tmp/cloud-config.yaml
+
+
+
 # hetzner-bootstrap-coreos
 
 This gem allows to bootstrap CoreOS on a Hetzner root server.
@@ -91,3 +106,12 @@ Copyright
 ---------
 
 Copyright © 2014 Christoph Pilka ([Asconix Systems AS](https://www.asconix.com))
+
+
+CoreOS
+------
+
+mkdir -p genconf
+https://dcos.io/docs/1.7/administration/installing/custom/gui/
+
+https://dcos.io/docs/1.7/administration/installing/custom/cli/

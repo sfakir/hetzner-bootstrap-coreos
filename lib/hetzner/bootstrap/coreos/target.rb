@@ -42,6 +42,7 @@ module Hetzner
         end
 
         def enable_rescue_mode(options = {})
+          logger.info "Trying to rescue system with #{@ip}, #{@rescue_os}, #{@rescue_os_bit}"
           result = @api.enable_rescue! @ip, @rescue_os, @rescue_os_bit
           if result.success? && result['rescue']
             @password = result['rescue']['password']
@@ -120,10 +121,16 @@ module Hetzner
           cloud_config = render_cloud_config
 
           remote do |ssh|
+
+            #@todo: f.puts does not work!
+            logger.info "writing cloud config"
             ssh.sftp.file.open("/tmp/cloud-config.yaml", "w") do |f|
               f.puts cloud_config
             end
+            logger.info "#{cloud_config}"
+            logger.info "downloading coreOS and GAWK"
             ssh.exec! "wget https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install -P /tmp"
+            ssh.exec! "apt-get install gawk --force-yes -y"
             ssh.exec! "chmod a+x /tmp/coreos-install"
             logger.info "Remote executing: #{@bootstrap_cmd}".colorize(:magenta)
             output = ssh.exec!(@bootstrap_cmd)

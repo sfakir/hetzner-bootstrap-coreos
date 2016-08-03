@@ -19,6 +19,25 @@ module Hetzner
         # @actions = %w(
         #     enable_rescue_mode
         # )
+        # @actions = %w(
+        #     remove_from_local_known_hosts
+        #     enable_rescue_mode
+        #     reset
+        #     wait_for_ssh_down
+        #     wait_for_ssh_up
+        #     update_local_known_hosts
+        #     installimage
+        #     reboot
+        #     wait_for_ssh_down
+        #     wait_for_ssh_up
+        #     update_local_known_hosts
+        #     verify_installation
+        #     post_install
+        #     post_install_remote
+        # )
+
+        #
+
         @actions = %w(
             remove_from_local_known_hosts
             enable_rescue_mode
@@ -67,7 +86,7 @@ module Hetzner
           d = Benchmark.realtime do
             target.send action
           end
-          target.logger.info "#{loghack}[#{action}] FINISHED in #{sprintf "%.5f",d} seconds"
+          target.logger.info "#{loghack}[#{action}] FINISHED in #{sprintf "%.5f", d} seconds"
         end
       rescue => e
         target.logger.error "Something bad happened unexpectedly: #{e.class} => #{e.message}"

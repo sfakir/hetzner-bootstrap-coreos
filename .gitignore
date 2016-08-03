@@ -5,3 +5,4 @@ bin/*
 Gemfile.lock
 pkg/*
 .rbenv-vars
+digdis.sh
